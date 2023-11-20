@@ -25,6 +25,9 @@ RUN apk add --no-cache ffmpeg
 
 EXPOSE 8000
 
+ARG DJANGO_SECRET_KEY
+ENV DJANGO_SECRET_KEY ${DJANGO_SECRET_KEY}
+
 RUN ["python", "manage.py", "collectstatic", "--noinput"]
 
 CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "server.wsgi:application"]
