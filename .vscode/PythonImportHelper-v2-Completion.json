@@ -137,11 +137,12 @@
         "documentation": {}
     },
     {
-        "label": "Image",
-        "importPath": "PIL",
-        "description": "PIL",
+        "label": "ffmpeg",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "PIL",
+        "importPath": "ffmpeg",
+        "description": "ffmpeg",
+        "detail": "ffmpeg",
         "documentation": {}
     },
     {
@@ -468,7 +469,7 @@
         "kind": 2,
         "importPath": "stream_creator.services.stream_create",
         "description": "stream_creator.services.stream_create",
-        "peekOfCode": "def create(img_path, new_path):\n    im1 = Image.open(img_path)\n    # invert image color\n    im2 = im1.convert(mode=\"L\")\n    im2 = im2.point(lambda x: 255 - x)\n    im2.save(new_path)",
+        "peekOfCode": "def create(file_path, output_path):\n    stream = ffmpeg.input(file_path)\n    stream = ffmpeg.hflip(stream)\n    stream = ffmpeg.output(stream, output_path)\n    ffmpeg.run(stream)",
         "detail": "stream_creator.services.stream_create",
         "documentation": {}
     },
