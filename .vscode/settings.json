@@ -1,0 +1,9 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": null,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true
+}
