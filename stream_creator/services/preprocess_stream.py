@@ -33,3 +33,14 @@ def video_id():
   # generate hash (8 chars)
   import uuid
   return str(uuid.uuid4())[:8]
+
+def get_folder_total_size(folder_loc):
+  # get total size of the folder
+  total_size = 0
+  for dirpath, dirnames, filenames in os.walk(folder_loc):
+    for f in filenames:
+      fp = os.path.join(dirpath, f)
+      total_size += os.path.getsize(fp)
+  # split total_size from 123456 to 123_456
+  total_size = f"{total_size:,}"
+  return total_size
