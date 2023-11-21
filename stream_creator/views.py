@@ -30,6 +30,7 @@ def create_view(request):
             location="./to_convert"
         )
         filename = fs.save(myfile.name, myfile)
+        print(" > File saved to local")
 
         # get file location in the local fs
         file_location = fs.path(filename)
@@ -41,6 +42,7 @@ def create_view(request):
         # create folder if not exists
         if not os.path.exists(output_fs.location):
             os.makedirs(output_fs.location)
+        print(" > Output folder ready")
 
         # set variables 
         serv_url = os.getenv("S3_ENDPOINTURL", "")
@@ -59,7 +61,7 @@ def create_view(request):
 
             # preprocess the m3u8 file
             preprocess_m3u8(output_file_location, vid_id, f"{serv_url}/{bucket_name}/{vid_id}")
-            print(f"Done creating {quality_tier} stream for {filename}")
+            print(f" > Done creating {quality_tier} stream for {filename}")
 
             # add to quality list
             quality_list.append([
@@ -72,9 +74,11 @@ def create_view(request):
         # create master playlist
         master_playlist_path = output_fs.path(f"master-{master_id}.m3u8")
         create_master_playlist(quality_list, f"{serv_url}/{bucket_name}/", master_playlist_path)
+        print(f" > Done creating master playlist for {filename}")
 
         # upload files to s3
         upload_folder_using_client(output_fs.location)
+        print(" > Done uploading to s3")
 
         # get file size
         input_file_size = get_folder_total_size(fs.location)
@@ -83,6 +87,7 @@ def create_view(request):
         # delete files in the local fs
         delete_folder_contents(fs.location)
         delete_folder_contents(output_fs.location)
+        print(" > Done deleting local files")
 
         # send back json response
         json_response = {
