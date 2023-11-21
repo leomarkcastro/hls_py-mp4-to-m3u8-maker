@@ -81,8 +81,8 @@ def create_view(request):
         total_size = get_folder_total_size(output_fs.location)
 
         # delete files in the local fs
-        # delete_folder_contents(fs.location)
-        # delete_folder_contents(output_fs.location)
+        delete_folder_contents(fs.location)
+        delete_folder_contents(output_fs.location)
 
         # send back json response
         json_response = {
