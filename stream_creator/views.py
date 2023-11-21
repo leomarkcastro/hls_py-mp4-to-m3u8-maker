@@ -21,7 +21,7 @@ def create_view(request):
             qualities = ["144p", "240p", "480p"]
 
         # get segment duration from query params
-        segment_duration = request.GET.get('segment_duration', 10)
+        segment_duration = request.GET.get('segmentlen', 10)
 
         myfile = request.FILES['myfile']
 
