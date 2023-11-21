@@ -66,7 +66,7 @@ def create_hls_stream(file_path, output_path, quality="480p", segment_duration=1
         f'"{output_path}"'
     ]
     stream_cmd_command = " ".join(stream_cmd_command)
-    # print(stream_cmd_command)
+    print(f" > {stream_cmd_command}")
     return run_on_cmd_and_wait(stream_cmd_command)
 
 def create_master_playlist(quality_defs, server_loc, output_path):
