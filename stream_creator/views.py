@@ -57,26 +57,30 @@ def create_view(request):
             output_file_location = output_fs.path(f"{vid_id}.m3u8")
 
             # create ffmpeg stream
+            print(f" > Creating {quality_tier} stream for {filename}")
             create_hls_stream(file_location, output_file_location, quality_tier, segment_duration)
 
             # preprocess the m3u8 file
+            print(f" > Preprocessing {quality_tier} stream for {filename}")
             preprocess_m3u8(output_file_location, vid_id, f"{serv_url}/{bucket_name}/{vid_id}")
-            print(f" > Done creating {quality_tier} stream for {filename}")
 
             # add to quality list
             quality_list.append([
                 *bandwidth_resolution_map[quality_tier],
                 f"{vid_id}.m3u8"
             ])
+            print(f" > Done creating {quality_tier} stream for {filename}")
         
         # generate video id
         master_id = video_id()
         # create master playlist
         master_playlist_path = output_fs.path(f"master-{master_id}.m3u8")
+        print(f" > Creating master playlist for {filename}")
         create_master_playlist(quality_list, f"{serv_url}/{bucket_name}/", master_playlist_path)
         print(f" > Done creating master playlist for {filename}")
 
         # upload files to s3
+        print(" > Uploading to s3")
         upload_folder_using_client(output_fs.location)
         print(" > Done uploading to s3")
 
@@ -85,6 +89,7 @@ def create_view(request):
         total_size = get_folder_total_size(output_fs.location)
 
         # delete files in the local fs
+        print(" > Deleting local files")
         delete_folder_contents(fs.location)
         delete_folder_contents(output_fs.location)
         print(" > Done deleting local files")
