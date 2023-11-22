@@ -3,6 +3,8 @@ def run_on_cmd_and_wait(cmd):
     import subprocess as sp
     proc = sp.Popen(cmd, shell=True, stdout=sp.PIPE, stderr=sp.PIPE)
     out, err = proc.communicate()
+    print(f" > out: {out}")
+    print(f" > err: {err}")
     return out, err
 
 bandwidth_resolution_map = {
