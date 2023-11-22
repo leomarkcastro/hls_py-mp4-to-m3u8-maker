@@ -30,4 +30,4 @@ ENV DJANGO_SECRET_KEY ${DJANGO_SECRET_KEY}
 
 RUN ["python", "manage.py", "collectstatic", "--noinput"]
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "server.wsgi:application"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "--timeout", "600" ,"server.wsgi:application"]
