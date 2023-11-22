@@ -57,7 +57,7 @@ def create_view(request):
             output_file_location = output_fs.path(f"{vid_id}.m3u8")
 
             # create ffmpeg stream
-            print(f" > Creating {quality_tier} stream for {filename}")
+            print(f" > Creating {quality_tier} stream for {filename} [{file_location}]")
             create_hls_stream(file_location, output_file_location, quality_tier, segment_duration)
 
             # preprocess the m3u8 file
